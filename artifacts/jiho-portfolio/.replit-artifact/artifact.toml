@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "이지호 | 프론트엔드 포트폴리오"
+description = "이지호의 실제 학습 경험, Java와 C++ 기초 기술, 프로그래밍 취업반 활동을 소개하는 GitHub Pages 배포용 정적 프론트엔드 포트폴리오."
+version = "1.0.0"
+id = "artifacts/jiho-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25136
+
+[services.development]
+run = "pnpm --filter @workspace/jiho-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/jiho-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/jiho-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25136"
+BASE_PATH = "/"
